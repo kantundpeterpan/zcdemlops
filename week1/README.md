@@ -72,3 +72,7 @@ Engineers
 - Model monitoring
 
 ## 4 - Full MLOps Automation
+
+# Homework
+
+see [notebook](./train_model/duration_prediction_yellow.ipynb)
