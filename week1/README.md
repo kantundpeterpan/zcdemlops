@@ -75,4 +75,5 @@ Engineers
 
 # Homework
 
-see [notebook](./train_model/duration_prediction_yellow.ipynb)
+see
+[notebook](https://nbviewer.org/github/kantundpeterpan/zcdemlops/blob/main/week1/train_model/duration_prediction_yellow.ipynb)
