@@ -7,7 +7,6 @@ format:
   gfm:
     output-ext: "md"
     output-file: "README"
-jupyter: zcmlops
 ---
 
 # Stages of an ML project
