@@ -1,0 +1,27 @@
+---
+title: "MLOPs: Week 3 - Orchestration, ML Pipelines"
+author: Heiner Atze
+# execute:
+#   cache: true
+format:
+  gfm:
+    output-ext: "md"
+    output-file: "README"
+---
+
+# Construction of a Machine Learning pipeline
+
+```{mermaid}
+graph LR
+    one[Download Data] --> two[Data Transformation];
+    two --> three[Feature Eng];
+    three --> four[Hyperparameter tuning];
+    four --> five[Final model fit]
+    five --> six(Push to Model registry)
+```
+
+## Workflow orchestrators for ML
+
+- Kubeflow pipelines
+- MLflow pipelines
+

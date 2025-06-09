@@ -14,8 +14,10 @@ dependencies = [
     "nbformat>=5.10.4",
     "pandas>=2.2.3",
     "plotly>=6.1.0",
+    "protobuf>=6.31.1",
     "pyarrow>=20.0.0",
     "pyyaml>=6.0.2",
     "scikit-learn>=1.6.1",
     "seaborn>=0.13.2",
+    "xgboost-cpu>=3.0.2",
 ]
