@@ -1,0 +1,62 @@
+---
+title: "MLOPs: Week 5 - ML monitoring in production"
+author: Heiner Atze
+# execute:
+#   cache: true
+format:
+  gfm:
+    output-ext: "md"
+    output-file: "README"
+---
+
+# Layers of health monitoring
+
+## Service health
+- Is the service up and running? (uptime)
+- Latency: How long does it take to serve a request?
+- Throughput: How many requests can the service handle per unit of time?
+- Error rate: What percentage of requests result in errors?
+- Resource utilization (CPU, memory, disk I/O)
+
+## Model health
+- Performance metrics (accuracy, precision, recall, F1-score, AUC)
+- Model prediction distribution (changes may indicate data drift or model degradation)
+- Comparison to baseline performance (performance on a held-out test set)
+- Monitoring fairness metrics (e.g., disparate impact, equal opportunity)
+
+## Data health
+- Data quality
+    - Frequency of categorical values
+    - Data type validation
+- Data integrity:
+    - Consistency checks across different data sources
+    - Validation against a predefined schema
+- Data and concept drift:
+    - Statistical tests to detect changes in data distributions (e.g., Kolmogorov-Smirnov test)
+    - Monitoring feature importance (changes may indicate concept drift)
+    - Tracking changes in feature correlations
+
+# How to monitor? 
+
+## Tools
+
+- Prometheus, Grafana
+- ML-focused dashboards
+
+## Batch vs. non-Batch monitoring  
+
+**Batch**
+
+- data quality is assessed against the training data or the preceding batch
+- check distribution
+- descriptive statistics and tests
+
+**Non-batch**
+
+- calculation of metrics continuously or incremnetally
+- Statistical tests on data slices
+
+# Monitoring Scheme
+
+- monitoring is based on the prediction logs
+- results of metrics storing in SQL DB
