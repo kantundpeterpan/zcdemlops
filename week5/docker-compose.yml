@@ -11,6 +11,8 @@ services:
     restart: always
     environment:
       POSTGRES_PASSWORD: example
+      POSTGRES_DB: test
+      POSTGRES_USER: postgres
     ports:
       - "5434:5432"
     networks:
@@ -32,8 +34,8 @@ services:
       - "3030:3000"
     volumes:
       - ./config/grafana_datasources.yaml:/etc/grafana/provisioning/datasources/datasource.yaml:ro
-      # - ./config/grafana_dashboards.yaml:/etc/grafana/provisioning/dashboards/dashboards.yaml:ro
-      # - ./dashboards:/opt/grafana/dashboards
+      - ./config/grafana_dashboards.yaml:/etc/grafana/provisioning/dashboards/dashboards.yaml:ro
+      - ./dashboards:/opt/grafana/dashboards
     networks:
       - back-tier
       - front-tier
