@@ -1,0 +1,92 @@
+# MLOPs: Week 4 - Model deployment
+Heiner Atze
+
+# Three ways of deploying an ML model
+
+- **Batch / offline**: Predictions obtained at regular intervals
+- **Online**: Up and running continously
+  - Web service
+  - Streaming
+
+## Batch mode
+
+``` mermaid
+graph LR
+    A[Data Source] --> B(Data Preprocessing)
+    B --> C(Model)
+    C --> D{Predictions}
+    D --> E[Store Predictions]
+    E --> F[Reporting/Dashboard]
+    style A fill:#f9f,stroke:#333,stroke-width:2px
+    style B fill:#ccf,stroke:#333,stroke-width:2px
+    style C fill:#fcc,stroke:#333,stroke-width:2px
+    style D fill:#cff,stroke:#333,stroke-width:2px
+    style E fill:#cfc,stroke:#333,stroke-width:2px
+    style F fill:#fcf,stroke:#333,stroke-width:2px
+```
+
+## Web service
+
+``` mermaid
+    graph LR
+        A[User Request] --> B{Web Server}
+        B --> C(Load Model)
+        C --> D(Preprocess Request Data)
+        D --> E(Model Prediction: Taxi Ride Duration)
+        E --> F(Post-process Prediction)
+        F --> B
+        B --> G[User Response]
+        style A fill:#f9f,stroke:#333,stroke-width:2px
+        style B fill:#ccf,stroke:#333,stroke-width:2px
+        style C fill:#fcc,stroke:#333,stroke-width:2px
+        style D fill:#cff,stroke:#333,stroke-width:2px
+        style E fill:#cfc,stroke:#333,stroke-width:2px
+        style F fill:#fcf,stroke:#333,stroke-width:2px
+        style G fill:#eee,stroke:#333,stroke-width:2px
+```
+
+## Streaming
+
+``` mermaid
+    graph LR
+        U[User] --> A
+        A[Producer: Data Source] --> B(Event Queue: Kafka/RabbitMQ)
+        B --> C{Consumer 1: Ride duration}
+        B --> D{Consumer 2: Tip prediction}
+        B --> E{Consumer 3: ...}
+        C --> F[Predictions]
+        D --> F
+        E --> F
+        F --> G[Action]
+        G --> U
+        style A fill:#f9f,stroke:#333,stroke-width:2px
+        style B fill:#ccf,stroke:#333,stroke-width:2px
+        style C fill:#fcc,stroke:#333,stroke-width:2px
+        style D fill:#cff,stroke:#333,stroke-width:2px
+        style E fill:#cfc,stroke:#333,stroke-width:2px
+        style F fill:#fcf,stroke:#333,stroke-width:2px
+        style G fill:#eee,stroke:#333,stroke-width:2px
+```
+
+# Web-service I: Deploy a pickled model with Flask and Docker
+
+see files and scripts in [./webservice](./webservice/)
+
+# Web-service II: Deploy a model from the model registry
+
+see files and scripts in [./webservice-mlflow](./webservice-mlflow/)
+
+To avoid being dependent on the tracking server in production, the model
+can be loaded using its path, either locally or on cloud storage (S3…)
+
+``` python
+import mlflow
+# no need to instantiate the client
+# local path
+logged_model = '../../mlartifacts/2/models/m-dbbe1bfd8e8c44e88f459ca9df82f691/artifacts'
+
+# Load model as a PyFuncModel.
+model = mlflow.pyfunc.load_model(logged_model)
+```
+
+# Batch processing
